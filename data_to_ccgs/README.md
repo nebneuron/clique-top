@@ -6,7 +6,9 @@ spike train data into 3D cross-correlogram arrays. There are
 three scripts, which should be run in the following order:
 
  SET CCG PARAMETERS AND LOAD DATA FILE
+ 
  PREPROCESS DATA
+ 
  BUILD MAXIMAL CCG MATRIX
 
 The first script needs to be edited to reflect the settings
