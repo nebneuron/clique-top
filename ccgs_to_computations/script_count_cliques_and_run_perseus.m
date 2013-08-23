@@ -51,22 +51,22 @@ for i=1:Parameters.numFiltrations % at each threshold level
     [allCliques, maximalCliques] = ...
      find_cliques_and_maximal_cliques(...
      Graph(logical(filteredCCGGraphs{i})), Parameters.Dimension+1);
-    print_cliques_to_perseus_file(maximalCliques, dataMaxFid);
-    print_cliques_to_perseus_file(allCliques, dataFid);
+    print_cliques_to_perseus_file(maximalCliques, dataMaxFid, i);
+    print_cliques_to_perseus_file(allCliques, dataFid, i);
          
     for j=1:Parameters.numControls
         [allCliques, maximalCliques] = ...
          find_cliques_and_maximal_cliques(...
          Graph(logical(filteredShuffledCCGGraphs{j}{i})), ...
          Parameters.Dimension+1);
-        print_cliques_to_perseus_file(maximalCliques, shuffledMaxFid);
-        print_cliques_to_perseus_file(allCliques, shuffledFid);
+        print_cliques_to_perseus_file(maximalCliques, shuffledMaxFid, i);
+        print_cliques_to_perseus_file(allCliques, shuffledFid, i);
 
         [allCliques, maximalCliques] = ...
          find_cliques_and_maximal_cliques(...
          Graph(logical(filteredWMEGraphs{J}{i})), Parameters.Dimension+1);
-        print_cliques_to_perseus_file(maximalCliques, wmeMaxFid);
-        print_cliques_to_perseus_file(allCliques, wmeFid);
+        print_cliques_to_perseus_file(maximalCliques, wmeMaxFid, i);
+        print_cliques_to_perseus_file(allCliques, wmeFid, i);
     end
      
 end
