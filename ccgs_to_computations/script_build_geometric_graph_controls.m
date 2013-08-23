@@ -80,8 +80,8 @@ for i=1:numFiltrations
              find_cliques_and_maximal_cliques(...
              Graph(logical(distanceGraphs{d, j}{i})), ...
              Parameters.Dimension+1);
-            print_cliques_to_perseus_file(maximalCliques, distMaxFix{d,j});
-            print_cliques_to_perseus_file(allCliques, distFix{d,j});
+            print_cliques_to_perseus_file(maximalCliques, distMaxFid{d,j}, i);
+            print_cliques_to_perseus_file(allCliques, distFid{d,j}, i);
         end            
     end
 end
