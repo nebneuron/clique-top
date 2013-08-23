@@ -17,7 +17,7 @@
 % ----------------------------------------------------------------
 
 dataFid = fopen('data_simplices.s', 'w');
-dataMaxFid = fopen('data_simplices.s', 'w');
+dataMaxFid = fopen('data_max_simplices.s', 'w');
 
 shuffledFid = cell(Parameters.numControls,1);
 shuffledMaxFid = cell(Parameters.numControls,1);
