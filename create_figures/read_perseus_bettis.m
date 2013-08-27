@@ -45,7 +45,7 @@ try
             thisInput = textscan(tline, stringFormat);
             for j = 2:length(thisInput)
                 if not(isempty(thisInput{j}))
-                    if thisInput{1} <= maxDim
+                    if (thisInput{1} <= maxFilt)
                         bettis(thisInput{1}, j-1) = thisInput{j};
                     end
                 end
