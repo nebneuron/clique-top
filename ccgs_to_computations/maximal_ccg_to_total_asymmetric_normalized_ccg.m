@@ -78,10 +78,10 @@ end
 % triangular half and symmetrizing.
 % ----------------------------------------------------------------
 
-tauNeg = sum(normalizedCCG((halfNumCorrCoeffs+1)-binsInCCGWindow:...
-    (halfNumCorrCoeffs+1), :, :),1);
-tauPos = sum(normalizedCCG((halfNumCorrCoeffs+1):...
-    (halfNumCorrCoeffs+1)+binsInCCGWindow, :, :),1);
+tauNeg = squeeze(sum(normalizedCCG((halfNumCorrCoeffs+1)...
+    - binsInCCGWindow:(halfNumCorrCoeffs+1), :, :),1));
+tauPos = squeeze(sum(normalizedCCG((halfNumCorrCoeffs+1):...
+    (halfNumCorrCoeffs+1)+binsInCCGWindow, :, :),1));
 
 totalCCG = triu(max(tauNeg, tauPos),1);
 totalCCG = totalCCG + totalCCG';
