@@ -73,6 +73,8 @@ end
 % Count cliques and output results to appropriate files
 % ----------------------------------------------------------------
 
+numFiltrations = Parameters.MaxP / Parameters.PStep + 1;
+
 for i=1:numFiltrations
     for d=1:numDimensions
         for j = 1:Parameters.numControls
