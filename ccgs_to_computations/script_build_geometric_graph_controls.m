@@ -44,7 +44,7 @@ for d=1:numDimensions
                         % in unit cube
 
         distanceGraphs{d, j} = weighted_graph_to_p_thresholded_graphs(...
-            weightedMatrix, pStep, maxP);
+            weightedMatrix, Parameters.PStep, Parameters.MaxP);
     end
 end
 
