@@ -1,5 +1,5 @@
 % ----------------------------------------------------------------
-% BUILD GEOMETRIC GRAPH CONTROLS AND COMPUTE BETTIS
+% BUILD GEOMETRIC GRAPH CONTROLS
 %
 % Given a data CCG matrix, run a sequence of controls by building
 % correlation matricies from the distance graphs of points
@@ -23,8 +23,8 @@
 % dimension (generically).
 % ----------------------------------------------------------------
 
+numDimensions = 10;
 dimensionList = [2 4 6 8 10 15 20 25 50 Parameters.numCells];
-numDimensions = length(dimensionList);
 
 % ----------------------------------------------------------------
 % Drop Parameters.numCells points uniformly in the Euclidean cube 
@@ -49,15 +49,54 @@ for d=1:numDimensions
 end
 
 % ----------------------------------------------------------------
-% Count cliques in each family of graphs and write these to files
-% in a format useable by Perseus to compute filtered homology.
+% Drop Parameters.numCells points uniformly in the Euclidean cube 
+% for each choice of dimension, then construct from these matrices
+% whose (i,j) entry is a decreasing function of the distance
+% between the ith and jth points.
 % ----------------------------------------------------------------
 
+distFid = cell(numDimensions, Parameters.numControls);
+distMaxFid = cell(numDimensions, Parameters.numControls);
 for d=1:numDimensions
-	for j=1:Parameters.numControls
-	    count_cliques_and_write_to_file(distanceGraphs{d, j}, ...
-	        Parameters.Dimension, 'dist'. '_R%i'. dimensionList(d), j);
-	end
+    for j=1:Parameters.numControls
+        distFid{d,j} = fopen(sprintf('dist_simplices_R%i_%i.s',...
+            dimensionList(d), j), 'w');
+        fprintf(distFid{d,j}, '1\n');    
+    
+        distMaxFid{d,j} = fopen(sprintf('dist_max_simplices_R%i_%i.s',...
+            dimensionList(d),j), 'w');
+        fprintf(distMaxFid{d,j}, '1\n');
+    end
+end
+
+% ----------------------------------------------------------------
+% Count cliques and output results to appropriate files
+% ----------------------------------------------------------------
+
+numFiltrations = Parameters.MaxP / Parameters.PStep + 1;
+
+for i=1:numFiltrations
+    for d=1:numDimensions
+        for j = 1:Parameters.numControls
+           [allCliques, maximalCliques] = ...
+             find_cliques_and_maximal_cliques(...
+             Graph(logical(distanceGraphs{d, j}{i})), ...
+             Parameters.Dimension+1);
+            print_cliques_to_perseus_file(maximalCliques, distMaxFid{d,j}, i);
+            print_cliques_to_perseus_file(allCliques, distFid{d,j}, i);
+        end            
+    end
+end
+    
+% ----------------------------------------------------------------
+% Close files
+% ----------------------------------------------------------------
+    
+for d=1:numDimensions
+    for j=1:Parameters.numControls
+        fclose(distFid{d,j});
+        fclose(distMaxFid{d,j});
+    end
 end
 
 % ----------------------------------------------------------------
@@ -65,8 +104,9 @@ end
 % ----------------------------------------------------------------
 
 for d=1:numDimensions
-	for j=1:Parameters.numControls
-	    system(sprintf('%s/perseus nmfsimtop dist_simplices_R%i_%g.s dist_homology_R%i_%g.s',...
-        	Parameters.PerseusDirectory, dimensionList(d), j, dimensionList(d), j));
-	end
+    for j=1:Parameters.numControls
+        system(sprintf('%s/perseus nmfsimtop dist_simplices_R%i_%g.s dist_homology_R%i_%g.s',...
+            Parameters.PerseusDirectory, dimensionList(d), j,...
+            dimensionList(d),j));
+    end
 end

@@ -37,16 +37,12 @@ This script constructs graph Laplacians for both the weighted
 graphs and the families of filtered binary matrices built from 
 the data, as well as the spectra of such. 
 
- * BUILD SHUFFLED CCG CONTROLS AND COMPUTE BETTIS
- * BUILD WME CONTROLS AND COMPUTE BETTIS
+ * 
+
  * BUILD GEOMETRIC GRAPH CONTROLS AND COMPUTE BETTIS
 
-These scripts build controls from the CCG base matrix and then 
-run the same filter/count cliques/compute betti curves process
-on this family of controls to produce mean betti curves. The
-shuffled CCG control shuffles the entries of the CCG matrix, 
-destroying correlations between elements. The WME control samples
-the maximum entropy distribution on weigthed graphs given by 
-"observing" the CCG matrix. The geometric graph control drops
-points (uniformly) in euclidean space and uses the inverse of
-their distances to simulate correlations.
+This script builds a family of "CCG" graphs by dropping
+points (equal to the number of neurons in the data)
+uniformly in various Euclidean spaces and then runs the
+same process usually performed on the other controls on
+this family of matrices.
