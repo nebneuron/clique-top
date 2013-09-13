@@ -11,78 +11,19 @@
 % ----------------------------------------------------------------
 
 % ----------------------------------------------------------------
-% Open files for output of cliques counted in each filtered family
-% of graphs. Data is stored in a format useable by Perseus to 
-% compute filtered homology.
+% Count cliques in each family of graphs and write these to files
+% in a format useable by Perseus to compute filtered homology.
 % ----------------------------------------------------------------
 
-dataFid = fopen('data_simplices.s', 'w');
-dataMaxFid = fopen('data_max_simplices.s', 'w');
-
-shuffledFid = cell(Parameters.numControls,1);
-shuffledMaxFid = cell(Parameters.numControls,1);
-
-wmeFid = cell(Parameters.numControls,1);
-wmeMaxFid = cell(Parameters.numControls,1);
+count_cliques_and_write_to_file(filteredCCGGraphs, ...
+    Parameters.Dimension, 'data'. ''. 0);
 
 for j=1:Parameters.numControls
-    shuffledFid{j} = fopen(sprintf('shuffled_ccg_simplices_%g.s',j), 'w');
-    fprintf(shuffledFid{j}, '1\n');
+    count_cliques_and_write_to_file(filteredShuffledCCGGraphs{j}, ...
+        Parameters.Dimension, 'shuffled_ccg'. ''. j);
 
-    shuffledMaxFid{j} = fopen(sprintf('shuffled_ccg_max_simplices_%g.s',...
-        j), 'w');
-    fprintf(shuffledMaxFid{j}, '1\n');
-
-    wmeFid{j} = fopen(sprintf('wme_simplices_%g.s',j), 'w');
-    fprintf(wmeFid{j}, '1\n');
-
-    wmeMaxFid{j} = fopen(sprintf('wme_max_simplices_%g.s', j), 'w');
-    fprintf(wmeMaxFid{j}, '1\n');
-end
-
-% ----------------------------------------------------------------
-% Count cliques and output results to appropriate files for data 
-% and each control
-% ----------------------------------------------------------------
-
-for i=1:Parameters.numFiltrations % at each threshold level    
-    disp(sprintf('Clique count, threshold %g',i));
-
-    [allCliques, maximalCliques] = ...
-     find_cliques_and_maximal_cliques(...
-     Graph(logical(filteredCCGGraphs{i})), Parameters.Dimension+1);
-    print_cliques_to_perseus_file(maximalCliques, dataMaxFid, i);
-    print_cliques_to_perseus_file(allCliques, dataFid, i);
-         
-    for j=1:Parameters.numControls
-        [allCliques, maximalCliques] = ...
-         find_cliques_and_maximal_cliques(...
-         Graph(logical(filteredShuffledCCGGraphs{j}{i})), ...
-         Parameters.Dimension+1);
-        print_cliques_to_perseus_file(maximalCliques, shuffledMaxFid, i);
-        print_cliques_to_perseus_file(allCliques, shuffledFid, i);
-
-        [allCliques, maximalCliques] = ...
-         find_cliques_and_maximal_cliques(...
-         Graph(logical(filteredWMEGraphs{J}{i})), Parameters.Dimension+1);
-        print_cliques_to_perseus_file(maximalCliques, wmeMaxFid, i);
-        print_cliques_to_perseus_file(allCliques, wmeFid, i);
-    end
-     
-end
-
-% ----------------------------------------------------------------
-% Close files
-% ----------------------------------------------------------------
-
-fclose(dataFid);
-fclose(dataMaxFid);
-        
-for j=1:Parameters.numControls
-    fclose(shuffledFid{j});
-    fclose(shuffledMaxFid{j});
-    fclose(wmeFid{j});
-    fclose(wmeMaxFid{j});
+    count_cliques_and_write_to_file(filteredWMEGraphs{j}, ...
+        Parameters.Dimension, 'wme'. ''. j);
 end
 
 % ----------------------------------------------------------------
