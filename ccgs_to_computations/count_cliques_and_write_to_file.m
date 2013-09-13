@@ -1,6 +1,5 @@
-function [allCliques, maximalCliques] = ...
-    count_cliques_and_write_to_file(filteredGraphs, maxCliqueDim,...
-    filePrefix, fileSuffix, runCounter)
+function count_cliques_and_write_to_file(filteredGraphs, ...
+    maxCliqueDim, filePrefix, fileSuffix, runCounter)
 
 % ----------------------------------------------------------------
 % COUNT CLIQUES AND WRITE TO FILE
@@ -9,7 +8,6 @@ function [allCliques, maximalCliques] = ...
 % write the output to a pair of files. One records the maximal
 % cliques and the other is Perseus-ready, recording only cliques
 % in the prescribed dimension range for homology computation.
-% Returns both counts of cliques as cell arrays.
 %
 % INPUT:
 %   filteredGraphs: Cell array containing adjacency matrices of 
@@ -22,14 +20,6 @@ function [allCliques, maximalCliques] = ...
 %       for control runs with the same base file data. Set to zero
 %       to omit adding a counter.
 %
-% OUTPUT:
-%   allCliques: Cell array containing cell array indexed by 
-%       filtration whose elements are maximal cliques of 
-%       dimension less than maxCliqueDim and all cliques of 
-%       exactly dimension maxCliqueDim.
-%   maximalCliques: Cell array containing cell array indexed by
-%       filtration whose elements are maximal cliques of each
-%       graph
 % ----------------------------------------------------------------
 
 numFiltrations = length(filteredGraphs);
@@ -59,16 +49,12 @@ fprintf(cliqueMaxFid, '1\n');
 % Count cliques and write to files
 % ----------------------------------------------------------------
 
-
-allCliques = cell(numFiltrations,1);
-maximalCliques = cell(numFiltrations,1);
-
 for i=1:numFiltrations
-    [allCliques{i}, maximalCliques{i}] = ...
+    [allCliques, maximalCliques] = ...
         find_cliques_and_maximal_cliques(...
         Graph(logical(filteredGraphs{i})), maxCliqueDim+1);
-        print_cliques_to_perseus_file(maximalCliques{i}, cliqueMaxFid, i);
-        print_cliques_to_perseus_file(allCliques{i}, cliqueFid, i);
+        print_cliques_to_perseus_file(maximalCliques, cliqueMaxFid, i);
+        print_cliques_to_perseus_file(allCliques, cliqueFid, i);
 end
 
 % ----------------------------------------------------------------
