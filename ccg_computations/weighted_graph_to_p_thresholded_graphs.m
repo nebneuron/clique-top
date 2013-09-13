@@ -12,14 +12,14 @@ function [graphs] = ...
 % INPUTS: 
 %   weightedGraph: A square symmetric matrix which is zero along
 %       the diagonal.
-%   pFilatrationStep: Size of step in Erdos-Renyi p per filtration 
+%   pFilatrationStep: Size of step in graph density per filtration 
 %       level
-%   maxP: Maximum Erdos-Renyi p value for which to return a graph
+%   maxP: Maximum graph density for which to return a graph
 %
 % OUTPUTS: 
 %   graphs: Cell array of adjecency matrices for the graph 
 %       at each filtration level. Matrices in the kth filtration
-%       have Erdos-Renyi p at least k * pFiltrationStep + minP
+%       have graph density at least k * pFiltrationStep + minP
 %       though this is only a lower bound since edge weights 
 %       may coincide, forcing us to include several edges in a 
 %       single increment.
@@ -37,7 +37,7 @@ thisWeightIndex = 0;
 
 % ----------------------------------------------------------------
 % For each filtration step, add edges in order of increasing 
-% weight until we are at or above the corresponding ER p value
+% weight until we are at or above the corresponding density
 % ----------------------------------------------------------------
 
 graphs = cell(round(maxP/pFiltrationStep),1);
@@ -55,7 +55,7 @@ for i=2:length(pThresholds)  % for each p threshold
                             % to rounding errors in floating point division
 
         thisERp = nnz(curGraph)/twicePossibleEdges;
-    end                     % include edges until graph has ER p
+    end                     % include edges until graph has density
                             % larger than threshold
     graphs{i} = curGraph;    % and record that graph at filtration i
 end

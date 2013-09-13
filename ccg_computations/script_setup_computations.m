@@ -24,7 +24,7 @@ Parameters = Par;
 Parameters.CCGWindowWidth = 1;
 
 % ----------------------------------------------------------------
-% Set ER p filtration range, maximal betti number (dimension)
+% Set graph denstiy filtration range, maximal betti number (dimension)
 % to compute and number of controls to run
 % ----------------------------------------------------------------
 
