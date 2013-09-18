@@ -21,13 +21,29 @@ function [ allCliques, maximalCliques ] = ...
 %       as a cell array of vectors
 % ----------------------------------------------------------------
 
-
-allCliques = thisGraph.GetCliques(1,maxDim, true);
-allCliques.Append(thisGraph.GetCliques(maxDim+1, maxDim+1, false));
-allCliques = allCliques.ToSubsets();
-
 maximalCliques = thisGraph.GetCliques(1,0, true);
 maximalCliques = maximalCliques.ToSubsets();
+
+numSmallCliques = 0;
+for j=1:length(maximalCliques)
+    numSmallCliques = numSmallCliques + nchoosek(max(maxDim+1,length(maximalCliques{j})), maxDim+1);
+end
+
+allCliques = cell(numSmallCliques,1);
+thisSmallClique = 1;
+
+for j=1:length(maximalCliques)
+    if length(maximalCliques{j}) <= maxDim
+        allCliques{thisSmallClique} = maximalCliques{j};
+        thisSmallClique = thisSmallClique + 1; 
+    else
+        theseSmallCliques = nchoosek(maximalCliques{j}, maxDim+1);
+        for k=1:size(theseSmallCliques,1)
+            allCliques{thisSmallClique} = theseSmallCliques(k,:);
+            thisSmallClique = thisSmallClique + 1; 
+        end
+    end
+end
 
 end
 
