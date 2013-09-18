@@ -42,7 +42,7 @@ end
 
 for j=1:Parameters.numControls
     count_cliques_and_write_to_file(filteredShuffledCCGGraphs{j}, ...
-        Parameters.Dimension, 'shuffled_ccg'. ''. j);
+        Parameters.Dimension, 'shuffled_ccg', '', j);
 end
 
 % ----------------------------------------------------------------
