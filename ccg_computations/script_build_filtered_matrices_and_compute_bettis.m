@@ -32,7 +32,7 @@ filteredCCGGraphs = weighted_graph_to_p_thresholded_graphs(totalCCG,...
 % ----------------------------------------------------------------
 
 count_cliques_and_write_to_file(filteredCCGGraphs, ...
-    Parameters.Dimension, 'data'. ''. 0);
+    Parameters.Dimension, 'data', '', 0);
 
 % ----------------------------------------------------------------
 % Use Perseus to compute persistent homology
