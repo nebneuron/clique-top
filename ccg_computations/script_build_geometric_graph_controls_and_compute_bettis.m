@@ -56,7 +56,7 @@ end
 for d=1:numDimensions
 	for j=1:Parameters.numControls
 	    count_cliques_and_write_to_file(distanceGraphs{d, j}, ...
-	        Parameters.Dimension, 'dist'. '_R%i'. dimensionList(d), j);
+	        Parameters.Dimension, 'dist', '_R%i', dimensionList(d), j);
 	end
 end
 
