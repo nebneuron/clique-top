@@ -45,7 +45,7 @@ end
 
 for j=1:Parameters.numControls
     count_cliques_and_write_to_file(filteredWMEGraphs{j}, ...
-        Parameters.Dimension, 'wme'. ''. j);
+        Parameters.Dimension, 'wme', '', j);
 end
 
 % ----------------------------------------------------------------
