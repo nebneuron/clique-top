@@ -71,8 +71,7 @@ end
 for d=1:numDimensions
 	Parameters.FileSuffix = sprintf('_R%i', dimensionList(d));
 	for j=1:Parameters.numControls
-	    run_perseus(Parameters.FilePrefix,...
-                Parameters.FileSuffix, j, ...
-                Parameters.PerseusDirectory);
+	     run_perseus(Parameters.FilePrefix,...
+             Parameters.FileSuffix, j, Parameters.PerseusDirectory);
 	end
 end

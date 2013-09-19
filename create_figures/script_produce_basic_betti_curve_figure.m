@@ -31,12 +31,12 @@ Parameters.Dimension = 4;  % maximum homological dimension
 % then simply use the same settings found there
 % ----------------------------------------------------------------
 
-Parameters.Prefix = 'data'; % File name of Perseus output file
-Parameters.Suffix = '';	    % is of the form:
-Parameters.NumRuns = 20;    %   <Parameters.Prefix>_homology<Parameters.Suffix>_<run_number>.s_betti.txt
-		            % or
-                            %   <Parameters.Prefix>_homology<Parameters.Suffix>.s_betti.txt
-		            % if Parameters.NumRuns is zero.
+Parameters.FilePrefix = 'data'; % File name of Perseus output file
+Parameters.FileSuffix = '';	% is of the form:
+Parameters.NumRuns = 20;        %   <Parameters.Prefix>_homology<Parameters.Suffix>_<run_number>.s_betti.txt
+   		                % or
+                                %   <Parameters.Prefix>_homology<Parameters.Suffix>.s_betti.txt
+		                % if Parameters.NumRuns is zero.
 
 % ----------------------------------------------------------------
 % Parameters for graphics: line style, line width and 
@@ -55,8 +55,9 @@ graphicsHandle = axes;
 
 hold on;
 
-draw_betti_curves(Parameters.Prefix, Parameters.Suffix, Parameters.NumRuns,...
-	Paramters.PStep, Parameters.MaxP, Parameters.Dimension,...
-	Parameters.LineStyle, Parameters.LineWidth, graphicsHandle, ...
+draw_betti_curves(Parameters.FilePrefix, Parameters.FileSuffix,...
+        Parameters.NumRuns, Paramters.PStep, Parameters.MaxP, ...
+        Parameters.Dimension, Parameters.LineStyle, ...
+        Parameters.LineWidth, graphicsHandle, ...
 	colorProgression);
 

@@ -14,9 +14,6 @@
 % COMPUTE BETTIS
 % ----------------------------------------------------------------
 
-Parameters.FilePrefix = 'shuffled_ccg';
-Parameters.FileSuffix = '';
-
 % ----------------------------------------------------------------
 % Build controls by repeatedly shuffling the CCG matrix entries
 % then filtering the resulting graphs by graph density.
@@ -45,8 +42,7 @@ end
 
 for j=1:Parameters.numControls
     count_cliques_and_write_to_file(filteredShuffledCCGGraphs{j}, ...
-        Parameters.Dimension, Parameters.FilePrefix, ...
-        Parameters.FileSuffix, j);
+        Parameters.Dimension, 'shuffled_ccg', '', j);
 end
 
 % ----------------------------------------------------------------
@@ -54,6 +50,6 @@ end
 % ----------------------------------------------------------------
 
 for j=1:Parameters.numControls
-    run_perseus(Parameters.FilePrefix, Parameters.FileSuffix, j, ...
-        Parameters.PerseusDirectory);
+    system(sprintf('%s/perseus nmfsimtop shuffled_ccg_simplices_%g.s shuffled_ccg_homology_%g.s',...
+        Parameters.PerseusDirectory, j,j));
 end

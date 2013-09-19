@@ -14,9 +14,6 @@
 % COMPUTE BETTIS
 % ----------------------------------------------------------------
 
-Parameters.FilePrefix = 'wme';
-Parameters.FileSuffix = '';
-
 % ----------------------------------------------------------------
 % Approximate the WME distribution for the degree sequence of the 
 % CCG matrix using the method of gradient descent. 
@@ -48,8 +45,7 @@ end
 
 for j=1:Parameters.numControls
     count_cliques_and_write_to_file(filteredWMEGraphs{j}, ...
-        Parameters.Dimension, Parameters.FilePrefix, ...
-        Paramters.FileSuffix, j);
+        Parameters.Dimension, 'wme', '', j);
 end
 
 % ----------------------------------------------------------------
@@ -57,6 +53,7 @@ end
 % ----------------------------------------------------------------
 
 for j=1:Parameters.numControls
-    run_perseus(Parameters.FilePrefix, Parameters.FileSuffix, j, ...
-        Parameters.PerseusDirectory);
+    system(sprintf(...
+        '%s/perseus nmfsimtop wme_simplices_%g.s wme_homology_%g.s',...
+        Parameters.PerseusDirectory, j, j));
 end

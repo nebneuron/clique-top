@@ -35,20 +35,15 @@ disp(sprintf('iter: %i, row: %i, col: %i', iter, row, col));
 
 thisCCGMatrix = ccg_trials(row, col);
 
-Parameters.FilePrefix = 'batch'
-Parameters.FileSuffix = sprintf('_%i_%i',row,col)
-
 % ----------------------------------------------------------------
 % Perform analysis on selected CCG graph
 % ----------------------------------------------------------------
 
-filteredCCGGraphs = weighted_graph_to_p_thresholded_graphs(...
-   thisCCGMatrix, Parameters.PStep, Parameters.MaxP);
+filteredCCGGraphs = weighted_graph_to_p_thresholded_graphs(thisCCGMatrix,...
+    Parameters.PStep, Parameters.MaxP);
 
 count_cliques_and_write_to_file(filteredCCGGraphs, ...
-    Parameters.Dimension, Parameters.FilePrefix,...
-    Parameters.FileSuffix, 0);
+    Parameters.Dimension, 'data', sprintf('_%i_%i',row,col), 0);
 
-run_perseus(Parameters.FilePrefix, Parameters.FileSuffix, 0, ...
-    Parameters.PerseusDirectory);
-
+system(sprintf('%s/perseus nmfsimtop data_simplices_%i_%i.s data_homology_%i_%i.s',...
+    Parameters.PerseusDirectory, row, col, row, col));

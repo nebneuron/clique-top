@@ -11,9 +11,6 @@
 % SETUP COMPUTATIONS or an equivalent process.
 % ----------------------------------------------------------------
 
-Parameters.FilePrefix = 'data';
-Parameters.FileSuffix = '';
-
 % ----------------------------------------------------------------
 % "Pare down" the maximal CCG matrix to produce a graph whose 
 % entries are normalized, assymetric cross correlations between
@@ -35,12 +32,11 @@ filteredCCGGraphs = weighted_graph_to_p_thresholded_graphs(totalCCG,...
 % ----------------------------------------------------------------
 
 count_cliques_and_write_to_file(filteredCCGGraphs, ...
-    Parameters.Dimension, Parameters.FilePrefix, ...
-    Parameters.FileSuffix, 0);
+    Parameters.Dimension, 'data', '', 0);
 
 % ----------------------------------------------------------------
 % Use Perseus to compute persistent homology
 % ----------------------------------------------------------------
 
-run_perseus(Parameters.FilePrefix, Parameters.FileSuffix, 0, ...
-    Parameters.PerseusDirectory);
+system(sprintf('%s/perseus nmfsimtop data_simplices.s data_homology.s',...
+    Parameters.PerseusDirectory));
