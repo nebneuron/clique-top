@@ -1,8 +1,8 @@
 % ----------------------------------------------------------------
-% SLURM BATCH ANALYSIS
+% BATCH ANALYSIS
 %
 % This script is a 'batch' tool designed to be launched by the
-% Slurm scheduler to concurrently execute a collection of related
+% a scheduler to concurrently execute a collection of related
 % analyses. The CCG matrices to be analyzed should be moved
 % to the cell array ccg_trials, where they will be iterated over
 % by columns then rows. Output will written into the working
@@ -13,7 +13,8 @@
 % certain to comment out the CCG File location/name in SETUP 
 % COMPUTATIONS, as these are not needed.
 %
-% It is vital that the shell script set the variable 'iter'.
+% It is vital that the script that calls this one set the 
+% variable 'iter'.
 % ----------------------------------------------------------------
 
 % ----------------------------------------------------------------
