@@ -10,7 +10,9 @@ that family.
 There are several additional scripts which compute graph 
 laplacians and various controls for the given dataset as well.
 These should be run following the initial data computation, as 
-they rely on various components thereof.
+they rely on various components thereof. Further, there is a 
+script designed to be called by a scheduler on a cluster to
+facilitate batch analyses.
 
 In order to use these scripts, one must have the 
 neural-codeware Cliquer and Graph classes installed, as well
@@ -28,7 +30,7 @@ The second script decomposes the CCG matrix into a thresholded
 family of graphs, then uses Cliquer and Perseus to compute the 
 persistent homology of the family of graphs.
 
-There are two optional scripts, which can be run after 
+There several optional scripts, which can be run after 
 BUILD FILTERED MATRICES AND COMPUTE BETTIS is complete:
 
  * COMPUTE GRAPH LAPLACIANS
@@ -50,3 +52,12 @@ the maximum entropy distribution on weigthed graphs given by
 "observing" the CCG matrix. The geometric graph control drops
 points (uniformly) in euclidean space and uses the inverse of
 their distances to simulate correlations.
+
+Lastly, the batch analysis script is
+ 
+ * BATCH ANALYSIS
+
+This script relies on an external file containing a cell array of
+precomputed CCG matrices and needs to be passed a variable called
+'iter' which controls which matrix the script runs the usual
+analysis on.
