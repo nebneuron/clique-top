@@ -59,7 +59,11 @@ if (exist(Parameters.WorkDirectory,'dir'))
         curClock(3), curClock(4), curClock(5), curClock(6));    
     mkdir(backupDir);	
     cd(backupDir);
-    movefile(sprintf('%s/*', Parameters.WorkDirectory));
+    try
+        movefile(sprintf('%s/*', Parameters.WorkDirectory));
+    catch exception
+        disp(exception.message);
+    end
     cd(Parameters.WorkDirectory);
 else             
     mkdir(Parameters.WorkDirectory);
