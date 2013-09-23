@@ -45,18 +45,21 @@ Parameters.numControls = 20;
 Parameters.PerseusDirectory = '~/Code/perseus';
 
 % ----------------------------------------------------------------
-% Define and create/clear working directory.
+% Define and create/clear working directory. Back up files in
+% working directory if the directory already exists.
 % ----------------------------------------------------------------
 
 Parameters.WorkDirectory = ...
     '~/results/spectrum_g01_maze14_MS.003';
 
 if (exist(Parameters.WorkDirectory,'dir'))
-    cd(Parameters.WorkDirectory);
-    remove_files = dir;
-    for k = 3:length(remove_files)
-        delete(remove_files(k).name);
-    end
+    curClock = fix(clock);
+    backupDir = sprintf('%s_backup_%i-%i-%i-%i:%i:%i',...
+        Parameters.WorkDirectory, curClock(1), curClock(2),...
+        curClock(3), curClock(4), curClock(5), curClock(6));    
+    mkdir(backupDir);	
+    cd(backupDir);
+    movefile(sprintf('%s/*', Parameters.WorkDirectory));
     cd(Parameters.WorkDirectory);
 else             
     mkdir(Parameters.WorkDirectory);
