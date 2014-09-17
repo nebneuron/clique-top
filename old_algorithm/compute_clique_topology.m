@@ -1,5 +1,5 @@
 function [bettiCurves, edgeDensities, persistenceIntervals,...
-    unboundedIntervals] = compute_clique_topology_old ( inputMatrix, varargin ) 
+    unboundedIntervals] = compute_clique_topology ( inputMatrix, varargin ) 
 
 % ----------------------------------------------------------------
 % COMPUTE CLIQUE TOPOLOGY
