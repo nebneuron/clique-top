@@ -1,9 +1,9 @@
 function [bettiCurves, edgeDensities, persistenceIntervals,...
-    unboundedIntervals] = compute_clique_topology ( inputMatrix, varargin ) 
+    unboundedIntervals] = compute_clique_topology_old ( inputMatrix, varargin ) 
 
 % ----------------------------------------------------------------
 % COMPUTE CLIQUE TOPOLOGY
-% written by Chad Giusti, 9/2014
+% written by Chad Giusti, 6/2014
 %
 % Given a symmetric real matrix, construct its order complex, a 
 % family of graphs filtered by graph density with edges added in 
@@ -147,17 +147,47 @@ catch exception
 end
 
 % ----------------------------------------------------------------
-% Enumerate maximal cliques and print to Perseus input file
+% Threshold the input matrix by graph density and then compute
+% a list of maximal cliques in the graph whose adjacency matrix
+% is the resulting binary matrix
+% ----------------------------------------------------------------
+
+matrixSize = size(inputMatrix, 1);
+
+[thresholdedMatrix, edgeList ] = threshold_graph_by_density(...
+    inputMatrix, maxEdgeDensity );
+
+numFiltrations = length(edgeList);
+
+if reportProgress
+    disp('Enumerating cliques in densest graph.');
+    tic;
+end
+
+if (maxEdgeDensity < 1)
+    maximalGraph = Graph(logical(thresholdedMatrix));
+
+    initialMaxCliques = maximalGraph.GetCliques(1,0, true);
+else
+    initialMaxCliques = Collection(ones(1,matrixSize));
+end
+
+% ----------------------------------------------------------------
+% Count cliques in the family of graphs obtained by thresholding
+% the input matrix at every density in [0, maxDensity], and write
+% these to files in a format useable by Perseus to compute 
+% persistent homology.
 % ----------------------------------------------------------------
 
 if reportProgress
     toc;
-    disp('Enumerating cliques.');
+    disp('Enumerating cliques in sparser graphs.');
     tic;
 end
 
-numFiltrations = enumerate_cliques_and_write_to_file(inputMatrix, ... 
-    maxBettiNumber + 2, maxEdgeDensity, filePrefix, writeMaximalCliques);
+split_cliques_and_write_subcliques_to_file(initialMaxCliques, ...
+    inputMatrix, edgeList, maxBettiNumber,... 
+    filePrefix, writeMaximalCliques);
 
 % ----------------------------------------------------------------
 % Use Perseus to compute persistent homology
@@ -178,8 +208,6 @@ end
 % ----------------------------------------------------------------
 % Assemble the results of the computation for output
 % ----------------------------------------------------------------
-
-matrixSize = size(inputMatrix, 1);
 
 edgeDensities = (1:numFiltrations) / nchoosek(matrixSize,2);
 

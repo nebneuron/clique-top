@@ -79,9 +79,9 @@ end
 % ----------------------------------------------------------------
 
 if betti0
-    bettis = bettis(:,1:maxDim+1);
+    bettis = bettis(:,1:min(maxDim+1, size(bettis,2)));
 else
-    bettis = bettis(:,2:maxDim+1);
+    bettis = bettis(:,2:min(maxDim+1, size(bettis,2)));
 end
 
 end
