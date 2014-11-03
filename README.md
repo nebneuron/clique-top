@@ -9,8 +9,10 @@ compute_clique_topology(A)
 
 for any symmetric matrix A. Options and details can be found in the documentation for the compute_clique_topology function.
 
-CliqueTop currently relies on the following software package, which is included in this repository for convenience and should require no further installation:
+CliqueTop currently relies on the following software packages, which are included in this repository for convenience and should function automatically without installation:
 
- * For persistent homology computations, we make use of Perseus by Vidit Nanda. As of this writing, the current version can be found at http://www.sas.upenn.edu/~vnanda/perseus/index.html. We recommend using the snapshot provided in this repository, as the input/output format for Perseus may change in the future.
+* For persistent homology computations, we make use of Perseus by Vidit Nanda. As of this writing, the current version can be found at http://www.sas.upenn.edu/~vnanda/perseus/index.html. We recommend using the snapshot provided in this repository, as the input/output format for Perseus may change in the future.
+* Cliquer, for the clique splitting version of the clique enumeration algorithm, a C package by Sampo Niskanen and Patric R. J. Östergård, available at http://users.aalto.fi/~pat/cliquer.html.
+
 
 The code was written by Chad Giusti, and the underlying ideas are the result of joint work with Vladimir Itskov and Carina Curto. The work was supported by NSF DMS-1122519.
