@@ -15,10 +15,15 @@
 %   intrinsic structure in neural correlations"
 %
 % CliqueTop currently relies on Perseus for persistent homology
-% computations, which is included in this archive for ease of use:
+% computations and Cliquer as a starting point the 'split' clique
+% enumeration algorithm. Both pieces of software are included in
+% this archive for ease of use and require no further installation.
+% They can be found at:
 %
 %  - Perseus 4.0B by Vidit Nanda, currently available at 
 %       http://www.sas.upenn.edu/~vnanda/perseus/index.html.
+%  - Cliquer by Sampo Niskanen, currently available at
+%       http://users.aalto.fi/~pat/cliquer.html
 %
 % Usage: ---------------------------------------------------------
 %
