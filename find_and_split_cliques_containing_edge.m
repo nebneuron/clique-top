@@ -43,10 +43,18 @@ cliquesNotContainingEdge = cliqueMatrix(~edgeInClique, :);
 % Build sparse matrix containing cliques after splitting
 % ----------------------------------------------------------------
 
-newCliques = [brokenCliques; brokenCliques; cliquesNotContainingEdge];
+newCliques = [brokenCliques; brokenCliques];
 newCliques(1:numBrokenCliques, edge(1)) = 0;
 newCliques(numBrokenCliques+1:2*numBrokenCliques, edge(2)) = 0;
-newCliques = unique(newCliques, 'rows');
+
+cliqueIntersectionSizes = cliquesNotContainingEdge * newCliques';
+newCliqueSizes = sum(newCliques,2);
+keepCliques = true(2*numBrokenCliques,1);
+for i=1:2*numBrokenCliques
+    keepCliques(i) = ~any(cliqueIntersectionSizes(:,i) == newCliqueSizes(i));
+end
+
+newCliques = [newCliques(keepCliques,:); cliquesNotContainingEdge];
 
 end
 
