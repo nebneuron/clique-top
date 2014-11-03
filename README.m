@@ -5,13 +5,14 @@
 % contact: cgiusti@seas.upenn.edu
 %
 % CliqueTop is a MATLAB package for doing topological analysis of 
-% correlation data. It was initially designed to study the 
+% correlation matrices. It was initially designed to study the 
 % persistent homology of cross-correlations between activity of
 % neurons in a population, but it computes invariants of general 
 % symmetric real matrices under element-wise monotonic increasing 
 % transformations. For details of what these invariants measure, 
 % please see 
-%   PAPER REFERENCE HERE 
+%   Giusti, Pastalkova, Curto, Itskov, "Clique topology reveals 
+%   intrinsic structure in neural correlations"
 %
 % CliqueTop currently relies on Perseus for persistent homology
 % computations, which is included in this archive for ease of use:
@@ -46,15 +47,15 @@
 % computation, see the documentation of the compute_clique_topology
 % function.
 %
-% Old Version: --------------------------------------------------
+% Algorithms: ----------------------------------------------------
 %
-% The folder "old_algorithm" contains the Cliquer-dependent version
-% of the algorithm used in the original paper referenced above. This
-% version uses less memory, but must enumerate cliques in some high
-% density graph before proceeding, and thus is less useful for 
-% exploratory analysis. In order to use this version, copy the files
-% in that folder to the main CliqueTop folder and run the 
-% README_AND_FIRST_TIME_SETUP.m file. Further details can be found
-% in that file.
+% There are three algorithms for clique enumeration implemented
+% in this package. By default, a naive algorithm that does not 
+% enumerate maximal cliques is used. This algorithm is less memory
+% intensive, but does not allow for maximal clique statistics and 
+% may be slower in some cases. The algorithm used in the paper 
+% cited above was the 'split' algorithm, which can be used
+% by selecting the appropriate parameter, as detailed in the 
+% documentation.
 %
 % ----------------------------------------------------------------

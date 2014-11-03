@@ -1,8 +1,8 @@
-function [ restrictedCliques ] = restrict_max_cliques_to_dimension( ...
+function [ restrictedCliques ] = restrict_max_cliques_to_size( ...
     maximalCliques, maxDim, firstVertex, secondVertex )
 
 % ----------------------------------------------------------------
-% RESTRICT CLIQUES TO DIMENSION
+% RESTRICT CLIQUES TO SIZE
 % written by Chad Giusti, 6/2014
 %
 % Given a cell array whose elements are positive integer arrays

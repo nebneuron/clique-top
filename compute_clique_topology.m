@@ -44,6 +44,19 @@ function [bettiCurves, edgeDensities, persistenceIntervals,...
 %   'WriteMaximalCliques': boolean flag indicating whether
 %       to create a separate file containing the maximal cliques
 %       in each graph. May slow process. (default: false)
+%   'Algorithm': which version of the clique enumeration algorithm
+%       to use. Options are: 'split', 'combine' and 'naive'. 'split'
+%       is the version used for the data processing in "Clique topology
+%       reveals intrinsic structure in neural correlations". It is
+%       usually the most memory-efficient algorithm, but requires the
+%       user to "guess" a maximum density and compute a list of cliques 
+%       using Cliquer, which must also be compiled using MEX. 'combine'
+%       is much less memory efficient, but constructs a list of maximal
+%       cliques starting from the first filtration and building upward.
+%       'naive' does not construct maximal cliques, but instead enumerates
+%       all cliques of sizes necessary to compute Bettis in the specified
+%       range. It is very memory efficient but slow, and works well for
+%       large matrices. It is incompatible with 'WriteMaximalCliques'.
 %
 % OUTPUTS:
 %	bettiCurves: rectangular array of size 
@@ -77,6 +90,7 @@ defaultFilePrefix = 'matrix';
 defaultKeepFiles = false;
 defaultWorkDirectory = '.';
 defaultWriteMaxCliques = false;
+defaultAlgorithm = 'naive';
 functionLocation = which('compute_clique_topology');
 defaultBaseDirectory = fileparts(functionLocation);
 
@@ -98,6 +112,8 @@ addOptional(p, 'WorkDirectory', defaultWorkDirectory, ...
     @(x) exist(x, 'dir') );
 addOptional(p, 'BaseDirectory', defaultBaseDirectory, ...
     @(x) exist(x, 'dir'));
+addOptional(p, 'Algorithm', defaultAlgorithm, ...
+    @(x) any(strcmp(x, {'naive', 'split', 'combine'})));
 
 parse(p,inputMatrix,varargin{:});
 
@@ -111,8 +127,36 @@ keepFiles = p.Results.KeepFiles;
 baseDirectory = p.Results.BaseDirectory;
 workDirectory = p.Results.WorkDirectory;
 writeMaximalCliques = p.Results.WriteMaximalCliques;
+algorithm = p.Results.Algorithm;
 perseusDirectory = [baseDirectory '/perseus'];
 neuralCodewareDirectory = [baseDirectory '/Neural_Codeware'];
+
+if (strcmp(algorithm, 'naive') && writeMaximalCliques)
+    error('Naive clique enumeration and WriteMaximalCliques are incompatible');
+end
+
+% ----------------------------------------------------------------
+% If we need Cliquer, make sure the files are compiled
+% ----------------------------------------------------------------
+
+if (strcmp(algorithm, 'split')) 
+    if ~exist(sprintf('./Neural_Codeware/+Cliquer/FindAll.%s', mexext), 'file')
+        disp('MEX Cliquer not compiled. Compiling before beginning process.')
+        
+        startFolder = cd(fileparts(which('compute_clique_topology.m')));
+        cd('Neural_Codeware');
+
+        Cliquer.Compile();
+
+        cd(startFolder);
+    end
+end
+
+% ----------------------------------------------------------------
+% Ensure that the diagonal is zero
+% ----------------------------------------------------------------
+
+inputMatrix(logical(eye(size(inputMatrix,1)))) = 0;
 
 % ----------------------------------------------------------------
 % Move to working directoy and stop if files might be overwritten
@@ -152,12 +196,24 @@ end
 
 if reportProgress
     toc;
-    disp('Enumerating cliques.');
+    sprintf('Enumerating cliques using %s algorithm.', algorithm);
     tic;
 end
 
-numFiltrations = enumerate_cliques_and_write_to_file(inputMatrix, ... 
-    maxBettiNumber + 2, maxEdgeDensity, filePrefix, writeMaximalCliques);
+switch algorithm
+    case 'combine' 
+        numFiltrations = combine_cliques_and_write_to_file(...
+            inputMatrix, maxBettiNumber + 2, maxEdgeDensity, filePrefix,...
+            writeMaximalCliques);
+    case 'naive'
+        numFiltrations = naive_enumerate_cliques_and_write_to_file(...
+            inputMatrix, maxBettiNumber + 2, maxEdgeDensity, filePrefix);
+    case 'split'    
+        numFiltrations = split_cliques_and_write_to_file(...
+            inputMatrix, maxBettiNumber + 2, maxEdgeDensity, filePrefix,...
+            writeMaximalCliques);
+
+end
 
 % ----------------------------------------------------------------
 % Use Perseus to compute persistent homology

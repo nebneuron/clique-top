@@ -1,11 +1,11 @@
-function [ maxFiltration ] = enumerate_cliques_and_write_to_file(...
+function [ maxFiltration ] = combine_cliques_and_write_to_file(...
     symMatrix, maxCliqueSize, maxDensity, filePrefix, writeMaxCliques )
 
 % ----------------------------------------------------------------
 % ENUMERATE CLIQUES AND WRITE TO FILE
 % written by Chad Giusti, 9/2014
 %
-% Given a symmetric matrix, use an iterative "gluing" method to
+% Given a symmetric matrix, use an iterative "combining" method to
 % enumerate cliques of a fixed size or smaller in the thresholded family 
 % of graphs with adjancency matrices obtained through thresholding the
 % matrix at successively lower values until the density of above threshold 

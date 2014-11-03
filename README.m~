@@ -1,8 +1,8 @@
 % ----------------------------------------------------------------
 % CliqueTop Package
-% README AND FIRST TIME SETUP 
-% written by Chad Giusti, 6/2014
-% contact: cgiusti2@unl.edu
+% README 
+% written by Chad Giusti, 9/2014
+% contact: cgiusti@seas.upenn.edu
 %
 % CliqueTop is a MATLAB package for doing topological analysis of 
 % correlation data. It was initially designed to study the 
@@ -11,7 +11,8 @@
 % symmetric real matrices under element-wise monotonic increasing 
 % transformations. For details of what these invariants measure, 
 % please see 
-%   PAPER REFERENCE HERE 
+%   "Clique topology reveals intrinsic structure in neural 
+%    correlations"
 %
 % CliqueTop currently relies on Perseus for persistent homology
 % computations, which is included in this archive for ease of use:
@@ -45,4 +46,15 @@
 % For details on optional parameters for the clique topology 
 % computation, see the documentation of the compute_clique_topology
 % function.
+%
+% Algorithms: ----------------------------------------------------
+%
+% There are several algorithms for clique enumeration implemented
+% in this package. By default, a naive algorithm that does not 
+% enumerate maximal cliques is used. This algorithm is less memory
+% intensive, but does not allow for maximal clique statistics and 
+% may be slower in some cases. The algorithm used in the paper 
+% cited above was the 'split' algorithm, which can be used
+% by selecting the appropriate flags when running the 
+%
 % ----------------------------------------------------------------

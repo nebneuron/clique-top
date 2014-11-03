@@ -1,7 +1,7 @@
-function [ ] = print_cliques_to_perseus_file( cliques, fid, filtration )
+function [ ] = print_clique_list_to_perseus_file( cliques, fid, filtration )
 
 % ----------------------------------------------------------------
-% PRINT CLIQUES TO PERSEUS FILE
+% PRINT CLIQUE LIST TO PERSEUS FILE
 % written by Chad Giusti, 6/2014
 %
 % Output a cell array of cliques in a particular filtration level 
