@@ -25,6 +25,19 @@
 %  - Cliquer by Sampo Niskanen, currently available at
 %       http://users.aalto.fi/~pat/cliquer.html
 %
+% The current implementation's computational limits occur at the
+% level of the persistent homology computation in Perseus. For a 
+% 100x100 symmetric matrix, the complete process requires roughly
+% on the order of 16 GB of RAM and 45 minutes of computation time
+% on a powerful desktop computer (as of 11/2014). Insufficient RAM
+% to complete the computatino will cause Perseus to crash and the
+% process to abort. However, the simplicial complex portion of the 
+% computation will be stored in the intermediate computation file 
+% (by default,  'matrix_simplices.txt') and can be rerun in Perseus 
+% from the command line either on a more powerful computer or after
+% restricting to a smaller number of filtrations to reduce the
+% required memory.
+%
 % Usage: ---------------------------------------------------------
 %
 % The primary interface for using the package is the function
