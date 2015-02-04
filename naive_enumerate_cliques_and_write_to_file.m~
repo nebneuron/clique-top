@@ -5,13 +5,13 @@ function [ maxFiltration ] = naive_enumerate_cliques_and_write_to_file( ...
 % NAIVE ENUMERATE CLIQUES AND WRITE TO FILE
 % written by Chad Giusti, 11/2014
 %
-% Given a symmetric matrix, naively list all cliques of size under
+% Given a symmetric matrix, naively list all cliques of size under 
 % the specified limit, along with the filtration level at which that
 % clique is complete.
-%
+% 
 % INPUTS:
 %	symMatrix: the symmetric matrix whose order complex
-%       we are working with
+%       we are working with 
 %   maxCliqueSize: maximum size of clique to enumerate
 %   maxDensity: maximum edge density -- stopping condition
 %   filePrefix: file prefix for output file
@@ -46,7 +46,7 @@ orderCanonicalForm = orderCanonicalForm + orderCanonicalForm';
 
 
 cliqueFid = fopen(sprintf('%s_simplices.txt',filePrefix), 'w');
-fprintf(cliqueFid, '1\n');
+fprintf(cliqueFid, '1\n');    
 
 for i=1:matrixSize
     fprintf(cliqueFid, '%i ', [0 i 1]);
@@ -54,7 +54,7 @@ for i=1:matrixSize
 end
 
 % ----------------------------------------------------------------
-% In order of increasing simplex size, list all simplices that
+% In order of increasing simplex size, list all simplices that 
 % appear in the order complex (before the given max density)
 % and print them to the file
 % ----------------------------------------------------------------
@@ -76,17 +76,17 @@ for simplexSize = 2:maxCliqueSize
         thisFilt = max(max(thisMinor));
         if (thisFilt < Inf)
             % ------------------------------------------------------------
-            % If no Inf appears, print this clique and the filtration in
+            % If no Inf appears, print this clique and the filtration in 
             % which is arisees to the file.
             % ------------------------------------------------------------
-            
+
             fprintf(cliqueFid, '%i ', [simplexSize-1 index thisFilt]);
             fprintf(cliqueFid, '\n');
             incIndex = find(index < final, 1, 'last');
-        else
+        else 
             % ------------------------------------------------------------
-            % If an Inf appears, skip all minors that would include that
-            % same entry, since those cliques all appear after the density
+            % If an Inf appears, skip all minors that would include that 
+            % same entry, since those cliques all appear after the density 
             % threshold
             % ------------------------------------------------------------
             
@@ -98,7 +98,7 @@ for simplexSize = 2:maxCliqueSize
         % ----------------------------------------------------------------
         % Increment the minor indices and see if the process is complete
         % ----------------------------------------------------------------
-        
+
         index(incIndex:end) = ...
             (index(incIndex)+1):(index(incIndex)+simplexSize-incIndex+1);
         
@@ -107,36 +107,12 @@ for simplexSize = 2:maxCliqueSize
             % We've reached the final possible clique. See if we need
             % to output it and then exit the loop.
             % ------------------------------------------------------------
-            
-            
-            thisMinor = orderCanonicalForm(index,index);
-            
-            thisFilt = max(max(thisMinor));
-            if (thisFilt < Inf)
-                % ------------------------------------------------------------
-                % If no Inf appears, print this clique and the filtration in
-                % which is arisees to the file.
-                % ------------------------------------------------------------
-                
-                fprintf(cliqueFid, '%i ', [simplexSize-1 index thisFilt]);
-                fprintf(cliqueFid, '\n');
-                incIndex = find(index < final, 1, 'last');
-            else
-                % ------------------------------------------------------------
-                % If an Inf appears, skip all minors that would include that
-                % same entry, since those cliques all appear after the density
-                % threshold
-                % ------------------------------------------------------------
-                
-                [infrow, infcol] = find(thisMinor == Inf, 1, 'last');
-                incIndex = min(max(infrow, infcol),...
-                    find(index < final, 1, 'last'));
-            end
+
             
             complete = true;
         end
-    end
-    
+    end         
+
     
     
     

@@ -91,6 +91,7 @@ defaultKeepFiles = false;
 defaultWorkDirectory = '.';
 defaultWriteMaxCliques = false;
 defaultAlgorithm = 'naive';
+defaultThreads = 1;
 functionLocation = which('compute_clique_topology');
 defaultBaseDirectory = fileparts(functionLocation);
 
@@ -113,7 +114,9 @@ addOptional(p, 'WorkDirectory', defaultWorkDirectory, ...
 addOptional(p, 'BaseDirectory', defaultBaseDirectory, ...
     @(x) exist(x, 'dir'));
 addOptional(p, 'Algorithm', defaultAlgorithm, ...
-    @(x) any(strcmp(x, {'naive', 'split', 'combine'})));
+    @(x) any(strcmp(x, {'naive', 'split', 'combine', 'parnaive'})));
+addOptional(p, 'Threads', defaultThreads, ...
+    @(x) isscalar(x) && (x > 0));
 
 parse(p,inputMatrix,varargin{:});
 
@@ -128,11 +131,16 @@ baseDirectory = p.Results.BaseDirectory;
 workDirectory = p.Results.WorkDirectory;
 writeMaximalCliques = p.Results.WriteMaximalCliques;
 algorithm = p.Results.Algorithm;
+numThreads = floor(p.Results.Threads);
 perseusDirectory = [baseDirectory '/perseus'];
 neuralCodewareDirectory = [baseDirectory '/Neural_Codeware'];
 
-if (strcmp(algorithm, 'naive') && writeMaximalCliques)
+if ((strcmp(algorithm, 'naive') || strcmp(algorithm, 'parnaive')) && writeMaximalCliques)
     error('Naive clique enumeration and WriteMaximalCliques are incompatible');
+end
+
+if (strcmp(algorithm, 'parnaive')) 
+    
 end
 
 % ----------------------------------------------------------------
@@ -208,6 +216,11 @@ switch algorithm
     case 'naive'
         numFiltrations = naive_enumerate_cliques_and_write_to_file(...
             inputMatrix, maxBettiNumber + 2, maxEdgeDensity, filePrefix);
+    case 'parnaive'
+        numFiltrations = ...
+            parallel_naive_enumerate_cliques_and_write_to_file(...
+            inputMatrix, maxBettiNumber + 2, maxEdgeDensity, filePrefix,...
+            numThreads );
     case 'split'    
         numFiltrations = split_cliques_and_write_to_file(...
             inputMatrix, maxBettiNumber + 2, maxEdgeDensity, filePrefix,...

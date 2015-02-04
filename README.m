@@ -30,7 +30,7 @@
 % 100x100 symmetric matrix, the complete process requires roughly
 % on the order of 16 GB of RAM and 45 minutes of computation time
 % on a powerful desktop computer (as of 11/2014). Insufficient RAM
-% to complete the computatino will cause Perseus to crash and the
+% to complete the computation will cause Perseus to crash and the
 % process to abort. However, the simplicial complex portion of the 
 % computation will be stored in the intermediate computation file 
 % (by default,  'matrix_simplices.txt') and can be rerun in Perseus 
