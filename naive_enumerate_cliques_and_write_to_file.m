@@ -59,7 +59,7 @@ end
 % and print them to the file
 % ----------------------------------------------------------------
 
-for simplexSize = 2:maxCliqueSize
+for simplexSize = 2:min(maxCliqueSize, matrixSize)
     
     index = 1:simplexSize;
     final = (matrixSize-simplexSize+1):matrixSize;
