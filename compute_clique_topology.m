@@ -281,6 +281,7 @@ try
     
 catch exception
     disp(exception.message);
+    disp('Failure to read Perseus output files. This error has likely occurred due to the Perseus process aborting due to memory limitations. It may be possible to circumvent this difficulty by reducing either the maximum Betti number or the maximum edge density computed. Please see the CliqueTop documentation for details.');
     rethrow(exception);
 end
 
