@@ -107,30 +107,18 @@ for simplexSize = 2:min(maxCliqueSize, matrixSize)
             % We've reached the final possible clique. See if we need
             % to output it and then exit the loop.
             % ------------------------------------------------------------
-            
-            
+                       
             thisMinor = orderCanonicalForm(index,index);
             
             thisFilt = max(max(thisMinor));
             if (thisFilt < Inf)
                 % ------------------------------------------------------------
                 % If no Inf appears, print this clique and the filtration in
-                % which is arisees to the file.
+                % which is arises to the file.
                 % ------------------------------------------------------------
                 
                 fprintf(cliqueFid, '%i ', [simplexSize-1 index thisFilt]);
                 fprintf(cliqueFid, '\n');
-                incIndex = find(index < final, 1, 'last');
-            else
-                % ------------------------------------------------------------
-                % If an Inf appears, skip all minors that would include that
-                % same entry, since those cliques all appear after the density
-                % threshold
-                % ------------------------------------------------------------
-                
-                [infrow, infcol] = find(thisMinor == Inf, 1, 'last');
-                incIndex = min(max(infrow, infcol),...
-                    find(index < final, 1, 'last'));
             end
             
             complete = true;
