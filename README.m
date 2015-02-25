@@ -12,7 +12,8 @@
 % transformations. For details of what these invariants measure, 
 % please see 
 %   Giusti, Pastalkova, Curto, Itskov, "Clique topology reveals 
-%   intrinsic structure in neural correlations"
+%   intrinsic geometric structure in neural correlations"
+%   (arXiv:1502.06172 [q-bio.NC] and arXiv:1502.06173 [q-bio.NC])
 %
 % CliqueTop currently relies on Perseus for persistent homology
 % computations and Cliquer as a starting point the 'split' clique
