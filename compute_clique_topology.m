@@ -132,8 +132,14 @@ workDirectory = p.Results.WorkDirectory;
 writeMaximalCliques = p.Results.WriteMaximalCliques;
 algorithm = p.Results.Algorithm;
 numThreads = floor(p.Results.Threads);
-perseusDirectory = [baseDirectory '/perseus'];
-neuralCodewareDirectory = [baseDirectory '/Neural_Codeware'];
+
+if ispc
+    perseusDirectory = [baseDirectory '\perseus'];
+    neuralCodewareDirectory = [baseDirectory '\Neural_Codeware'];
+else
+    perseusDirectory = [baseDirectory '/perseus'];
+    neuralCodewareDirectory = [baseDirectory '/Neural_Codeware'];
+end
 
 if ((strcmp(algorithm, 'naive') || strcmp(algorithm, 'parnaive')) && writeMaximalCliques)
     error('Naive clique enumeration and WriteMaximalCliques are incompatible');

@@ -16,15 +16,19 @@ function run_perseus(filePrefix, perseusDirectory)
 
 if ismac
     perseusCommand = 'perseusMac';
+    system(sprintf('%s/%s nmfsimtop %s_simplices.txt %s_homology',...
+        perseusDirectory, perseusCommand, filePrefix, filePrefix));
 elseif ispc
     perseusCommand = 'perseusWin';
+    system(sprintf('"%s\%s" nmfsimtop %s_simplices.txt %s_homology',...
+        perseusDirectory, perseusCommand, filePrefix, filePrefix));
 elseif isunix
     perseusCommand = 'perseusLin';
+    system(sprintf('%s/%s nmfsimtop %s_simplices.txt %s_homology',...
+        perseusDirectory, perseusCommand, filePrefix, filePrefix));
 else
     error('Cannot determine operating system type to run Perseus.');
 end
 
-system(sprintf('%s/%s nmfsimtop %s_simplices.txt %s_homology',...
-        perseusDirectory, perseusCommand, filePrefix, filePrefix));
     
 end    
