@@ -22,23 +22,23 @@ function [bettiCurves, edgeDensities, persistenceIntervals,...
 % OPTIONAL PARAMETERS:
 %   'ReportProgress': displays status and time elapsed in each stage
 %       as computation progresses (default: false)
-%	'MaxBettiNumber': positive integer specifying maximum Betti 
-%		number to compute (default: 3)
-%	'MaxEdgeDensity': maximum graph density to include in the
-%		order complex in range (0, 1] (default: .6)
-%	'FilePrefix': prefix for intermediate computation files,
-%		useful for multiple simultaneous jobs
-%		(default: 'matrix')
+%   'MaxBettiNumber': positive integer specifying maximum Betti 
+% 	number to compute (default: 3)
+%   'MaxEdgeDensity': maximum graph density to include in the
+%	order complex in range (0, 1] (default: .6)
+%   'FilePrefix': prefix for intermediate computation files,
+%	useful for multiple simultaneous jobs
+%	(default: 'matrix')
 %   'ComputeBetti0': boolean flag for keeping Betti 0 
 %       computations; this shifts the indexing of the
 %       outputs so that column n represents Betti (n-1).
 %       (default: false)
-%	'KeepFiles': boolean flag indicating whether to keep
-%		intermediate files when the computation 
-%		is complete (default: false)
-%	'WorkDirectory': directory in which to keep intermediate
-%		files during computation (default: current 
-%		directory, '.')
+%   'KeepFiles': boolean flag indicating whether to keep
+%	intermediate files when the computation 
+%	is complete (default: false)
+%   'WorkDirectory': directory in which to keep intermediate
+%       files during computation (default: current 
+%	directory, '.')
 %   'BaseDirectory': location of the CliqueTop matlab files
 %       (default: detected by which('compute_clique_topology'))
 %   'WriteMaximalCliques': boolean flag indicating whether
@@ -59,14 +59,14 @@ function [bettiCurves, edgeDensities, persistenceIntervals,...
 %       large matrices. It is incompatible with 'WriteMaximalCliques'.
 %
 % OUTPUTS:
-%	bettiCurves: rectangular array of size 
-%		maxHomDim x floor(maxGraphDensity * (N choose 2)) 
-%		whose rows are the Betti curves B_1 ... B_maxHomDim
-%		across the order complex
+%   bettiCurves: rectangular array of size 
+%	maxHomDim x floor(maxGraphDensity * (N choose 2)) 
+%	whose rows are the Betti curves B_1 ... B_maxHomDim
+%	across the order complex
 %   edgeDensities: the edge densities of the graphs in the
 %       order complex, useful for x-axis labels when graphing
 %	persistenceIntervals: rectangular array of size
-%		maxHomDim x floor(maxGraphDensity * (N choose 2)) 
+%	maxHomDim x floor(maxGraphDensity * (N choose 2)) 
 %       whose rows are counts of the persistence lifetimes
 %       in each homological dimension. 
 %   unboundedIntervals: vector of length maxHomDim whose
@@ -134,8 +134,8 @@ algorithm = p.Results.Algorithm;
 numThreads = floor(p.Results.Threads);
 
 if ispc
-    perseusDirectory = [baseDirectory '\perseus'];
-    neuralCodewareDirectory = [baseDirectory '\Neural_Codeware'];
+    perseusDirectory = [baseDirectory '\\perseus'];
+    neuralCodewareDirectory = [baseDirectory '\\Neural_Codeware'];
 else
     perseusDirectory = [baseDirectory '/perseus'];
     neuralCodewareDirectory = [baseDirectory '/Neural_Codeware'];
