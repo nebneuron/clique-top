@@ -134,8 +134,8 @@ algorithm = p.Results.Algorithm;
 numThreads = floor(p.Results.Threads);
 
 if ispc
-    perseusDirectory = [baseDirectory '\\perseus'];
-    neuralCodewareDirectory = [baseDirectory '\\Neural_Codeware'];
+    perseusDirectory = [baseDirectory '/perseus'];
+    neuralCodewareDirectory = [baseDirectory '/Neural_Codeware'];
 else
     perseusDirectory = [baseDirectory '/perseus'];
     neuralCodewareDirectory = [baseDirectory '/Neural_Codeware'];

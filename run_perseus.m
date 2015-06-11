@@ -20,7 +20,7 @@ if ismac
         perseusDirectory, perseusCommand, filePrefix, filePrefix));
 elseif ispc
     perseusCommand = 'perseusWin';
-    system(sprintf('"%s\\%s" nmfsimtop %s_simplices.txt %s_homology',...
+    system(sprintf('"%s/%s" nmfsimtop %s_simplices.txt %s_homology',...
         perseusDirectory, perseusCommand, filePrefix, filePrefix));
 elseif isunix
     perseusCommand = 'perseusLin';
