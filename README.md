@@ -16,5 +16,5 @@ CliqueTop currently relies on the following software packages, which are include
 
 The code was written by Chad Giusti, and the underlying ideas are the result of joint work with Vladimir Itskov and Carina Curto. The work was supported by NSF DMS-1122519. More details can be found in
 
-  Giusti, Pastalkovaa, Curto and Itskov, "Clique topology reveals instrinsic geometric structure in neural correlations." 
+  Giusti, Pastalkova, Curto and Itskov, "Clique topology reveals instrinsic geometric structure in neural correlations." 
   (arXiv:1502.06172 [q-bio.NC] and arXiv:1502.06173 [q-bio.NC])
