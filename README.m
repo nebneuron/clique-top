@@ -1,5 +1,4 @@
 % ----------------------------------------------------------------
-% hi its nikki sept 13 2023
 % CliqueTop Package
 % README 
 % written by Chad Giusti, 9/2014
